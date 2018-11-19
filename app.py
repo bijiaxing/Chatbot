@@ -42,7 +42,7 @@ def add():
     file1.write('\n')
     file1.write(ans)
     file1.close()
-    return queList[0]
+    return "问题修改成功"
     
 
 @app.route("/hello")
