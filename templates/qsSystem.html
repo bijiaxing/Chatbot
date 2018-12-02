@@ -6,8 +6,13 @@
   <title>语料管理</title>
   <style type="text/css"></style>
 </head>
-<body >
-	<div id="header">欢迎进入语料自治系统</div>
+<body>
+    {% if answer %}
+      <div id="success">语料提交成功，请继续提交</div>
+    {% else %}
+   <div id="header">欢迎进入语料自治系统</div>
+    {% endif %}
+	
 	<br>
   <br>
 <div  id="containner">

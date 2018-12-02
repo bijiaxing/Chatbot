@@ -27,7 +27,7 @@ def check():
     password = request.form['password']
     if username=='admin' and password=='password':
         return render_template('qsSystem.html')
-    return "账号密码错误"
+    return render_template("login.html",answer="wrong")
 
 
 @app.route("/question",methods=['post'])
@@ -42,7 +42,7 @@ def add():
     file1.write('\n')
     file1.write(ans)
     file1.close()
-    return "问题修改成功"
+    return render_template('qsSystem.html',answer="success")
     
 
 @app.route("/hello")

@@ -21,7 +21,11 @@
 <div id="myform">
 <p></p>
   <form action="/check" method="post">
+  	{% if answer %}
+  	<legend id="red">账号密码错误,请重新输入:</legend>
+  	{% else %}
     <legend>请输入账号密码:</legend>
+    {% endif %}
     <p><input name="username" placeholder="Username" value="{{ username }}"></p>
     <p><input name="password" placeholder="Password" type="password"></p>
     <p align="center">&nbsp&nbsp&nbsp<button type="submit">登陆</button></p>

@@ -24,3 +24,7 @@ body{
 #header{
 	text-align: center;
 }
+#success{
+	text-align: center;
+    color: red;
+}
