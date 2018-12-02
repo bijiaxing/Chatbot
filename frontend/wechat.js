@@ -1,4 +1,5 @@
- window.onload = function(){
+ window.onload = function()
+ {
             var arrIcon = ['http://www.xttblog.com/icons/favicon.ico','http://www.xttblog.com/wp-content/uploads/2016/03/123.png'];
             var num = 1;     //控制头像改变
             var iNow = -1;    //用来累加改变左右浮动
@@ -17,23 +18,22 @@
                     num = 0;
                 }                
             }
-            btn.onclick = function(){
-                if(text.value ==''){
+            btn.onclick = function()
+            {
+                if(text.value =='')
+                {
                     alert('不能发送空消息');
-                }else {
-                    num = -num;
-            
-                 
+                }else 
+                {
+                   num = -num;       
                    content.innerHTML += '<li><img src="'+arrIcon[1]+'" class = "imgright"><span class = "spanright">'+text.value+'</span></li>';
-                  
-
-                       $.get( "http://47.101.48.239/chatbot?content="+text.value, function( data ) {
+                    $.get( "http://47.101.48.239/chatbot?content="+text.value, function( data )
+                     {
                         content.innerHTML += '<li><img src="'+arrIcon[0]+'" class = "imgleft"><span class = "spanleft">'+data.as+'</span></li>';
-          }, "json" );
-
+                     }, "json");
                     text.value = '';
                     // 内容过多时,将滚动条放置到最底端
                     content.scrollTop=content.scrollHeight;  
                 }
-            }
+             }
         }
