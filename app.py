@@ -32,8 +32,8 @@ def check():
 
 @app.route("/question",methods=['post'])
 def add():
-    ques=request.form['question']
-    ans=request.form['answer']
+    ques=request.form['question'].replace('\n','')#去除回车
+    ans=request.form['answer'].replace('\n','')
     queList.append(ques)
     ansList.append(ans)
     file1=open("wordresource.txt","a")
@@ -52,7 +52,8 @@ def hello():
 
 @app.route("/chatbot")
 def chat():
-    content = request.args.get('content')
+    tmpcontent = request.args.get('content')
+    content=tmpcontent.replace('\n','')
     answer=readvec.similarityCheck(content,vectors,queList,ansList)
     print(content)
     print(answer)
@@ -63,9 +64,6 @@ if __name__ == '__main__':
     app.run()
     #app.run(debug=True)
     #debug=True,debug模式会产生双倍的内存消耗
-
-
-
 
 
 
