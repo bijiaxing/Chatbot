@@ -62,6 +62,4 @@ def similarityCheck(s,vectors,queList,ansList):
             answer=ansList[flag]
     if finalsimiar>0.7:
         return answer
-    else:
-        return "您的提问超过语料范围"
 

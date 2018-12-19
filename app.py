@@ -6,6 +6,7 @@ from flask_cors import CORS
 import readvec 
 from qsresouce import *
 import pickle
+import tulingbot
 queList=[]
 ansList=[]
 readQSresouce('wordresource.txt',queList,ansList)
@@ -55,6 +56,8 @@ def chat():
     tmpcontent = request.args.get('content')
     content=tmpcontent.replace('\n','')
     answer=readvec.similarityCheck(content,vectors,queList,ansList)
+    if answer==None:
+        answer=tulingbot.get_answer(content)
     print(content)
     print(answer)
     return  json.dumps({'as':answer}) 
