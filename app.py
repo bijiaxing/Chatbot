@@ -7,10 +7,19 @@ import readvec
 from qsresouce import *
 import pickle
 import tulingbot
-queList=[]
-ansList=[]
-readQSresouce('wordresource.txt',queList,ansList)
 
+Ecommerce_queList=[]
+Ecommerce_ansList=[]
+Logistics_queList=[]
+Logistics_ansList=[]
+Hotel_queList=[]
+Hotel_ansList=[]
+#语料列表声明
+
+readQSresouce('corpus/ecommerce.txt',Ecommerce_queList,Ecommerce_ansList)#读取电商沙盘语料库
+readQSresouce('corpus/logistics.txt',Logistics_queList,Logistics_ansList)#读取物流沙盘语料库
+readQSresouce('corpus/hotel.txt',Hotel_queList,Hotel_ansList)#读取物流沙盘语料库
+#语料读取
 with open('embedding.pickle', 'rb') as handle:
     vectors = pickle.load(handle)
 # 用vectors从embedding.pickle中读取全部词向量
@@ -30,32 +39,50 @@ def check():
         return render_template('qsSystem.html')
     return render_template("login.html",answer="wrong")
 
-
 @app.route("/question",methods=['post'])
 def add():
     ques=request.form['question'].replace('\n','')#去除回车
     ans=request.form['answer'].replace('\n','')
-    queList.append(ques)
-    ansList.append(ans)
-    file1=open("wordresource.txt","a")
+    Ecommerce_queList.append(ques)
+    Ecommerce_ansList.append(ans)
+    file1=open("ecommerce.txt","a")
     file1.write('\n')
     file1.write(ques)
     file1.write('\n')
     file1.write(ans)
     file1.close()
     return render_template('qsSystem.html',answer="success")
-    
-
-@app.route("/hello")
-def hello():
-    return "hello"
 
 
+#电商沙盘机器人接口
 @app.route("/chatbot")
 def chat():
     tmpcontent = request.args.get('content')
     content=tmpcontent.replace('\n','')
-    answer=readvec.similarityCheck(content,vectors,queList,ansList)
+    answer=readvec.similarityCheck(content,vectors,Ecommerce_queList,Ecommerce_ansList)
+    if answer==None:
+        answer=tulingbot.get_answer(content)
+    print(content)
+    print(answer)
+    return  json.dumps({'as':answer}) 
+#酒店沙盘机器人接口
+@app.route("/hotelchatbot")
+def hotel():
+    tmpcontent = request.args.get('content')
+    content=tmpcontent.replace('\n','')
+    answer=readvec.similarityCheck(content,vectors,Hotel_queList,Hotel_ansList)
+    if answer==None:
+        answer=tulingbot.get_answer(content)
+    print(content)
+    print(answer)
+    return  json.dumps({'as':answer}) 
+
+#物流沙盘机器人接入口
+@app.route("/logisticschatbot")
+def logistics():
+    tmpcontent = request.args.get('content')
+    content=tmpcontent.replace('\n','')
+    answer=readvec.similarityCheck(content,vectors,Logistics_queList,Logistics_ansList)
     if answer==None:
         answer=tulingbot.get_answer(content)
     print(content)
@@ -63,9 +90,10 @@ def chat():
     return  json.dumps({'as':answer}) 
 
 
+
 if __name__ == '__main__':
-    app.run()
-    #app.run(debug=True)
+    #app.run()
+    app.run(debug=True)
     #debug=True,debug模式会产生双倍的内存消耗
 
 
