@@ -37,7 +37,7 @@ def sentence_vector(s,vectors):#该函数用于计算句子向量
                 for tmp in word:#如果表中没有则分成单个字后加入
                     if tmp in vectors.keys():
                         v+=vectors[tmp]
-        v /= len(words)
+       # v /= len(words)，不需要，计算向量角度和向量的长度无关
         return v
 
 
