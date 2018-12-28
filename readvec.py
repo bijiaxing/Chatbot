@@ -28,9 +28,16 @@ def read_vectors(path, topn, vectors):  # read top n word vectors
 
 #将句子转化为向量
 def sentence_vector(s,vectors):#该函数用于计算句子向量
-        words = jieba.lcut(s)
+        words = jieba.lcut(s.replace("能不能",""))
         v = np.zeros(300)
         for word in words:
+            if word in ["告诉","你" , "请问" , "我" , "什么" , "是" ,"呀", "，","？","?",".","。",
+            "可不可以","的","该","如何","进行","吗",
+            "会","怎么办","到底","应该",
+            "怎么","做","应该","这",
+            "才能","达到","呢",
+            "用来","可以","干","啥"]:
+                 continue
             if word in vectors.keys():#如果表中有则加入
                 v += vectors[word]
             else:
