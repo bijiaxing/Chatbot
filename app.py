@@ -66,7 +66,7 @@ def chat():
     print(answer)
     return  json.dumps({'as':answer}) 
 #酒店沙盘机器人接口
-@app.route("/hotelchatbot")
+@app.route("/hotel")
 def hotel():
     tmpcontent = request.args.get('content')
     content=tmpcontent.replace('\n','')
@@ -78,7 +78,7 @@ def hotel():
     return  json.dumps({'as':answer}) 
 
 #物流沙盘机器人接入口
-@app.route("/logisticschatbot")
+@app.route("/logistics")
 def logistics():
     tmpcontent = request.args.get('content')
     content=tmpcontent.replace('\n','')

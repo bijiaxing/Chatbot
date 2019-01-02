@@ -27,7 +27,7 @@
                 {
                    num = -num;       
                    content.innerHTML += '<li><img src="'+arrIcon[1]+'" class = "imgright"><span class = "spanright">'+text.value+'</span></li>';
-                    $.get( "http://127.0.0.1:5000/chatbot?content="+text.value, function( data )
+                    $.get( "http://47.101.48.239/logistics?content="+text.value, function( data )
                      {
                         content.innerHTML += '<li><img src="'+arrIcon[0]+'" class = "imgleft"><span class = "spanleft">'+data.as+'</span></li>';
                      }, "json");
