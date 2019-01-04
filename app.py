@@ -20,6 +20,14 @@ readQSresouce('corpus/ecommerce.txt',Ecommerce_queList,Ecommerce_ansList)#读取
 readQSresouce('corpus/logistics.txt',Logistics_queList,Logistics_ansList)#读取物流沙盘语料库
 readQSresouce('corpus/hotel.txt',Hotel_queList,Hotel_ansList)#读取物流沙盘语料库
 #语料读取
+
+StopWord_list=[]
+readQSresouce('corpus/stopword.txt',StopWord_list,StopWord_list)
+Temp_list=["告诉","你" , "请问" , "我" , "什么" , "是" ,"呀", "，","？","?",".","。", "可不可以","的","该","如何","进行","吗","说","讲", "一下" ,"么" ,"谈" ,"干什么", "能否", "是否", "请", "会","怎么办","到底","应该","怎么样", "怎么","做","应该","这",
+  "才能","达到","呢", "用来","可以","干","啥"]
+StopWord_list.extend(Temp_list)
+#停用词读取
+
 with open('embedding.pickle', 'rb') as handle:
     vectors = pickle.load(handle)
 # 用vectors从embedding.pickle中读取全部词向量
@@ -63,7 +71,6 @@ def chat():
     if answer==None:
         answer=tulingbot.get_answer(content)
     file1=open("Log/HistoryEcommerce.txt","a")
-    file1.write('\n')
     file1.write(content)
     file1.write('\n')
     file1.write(answer)
@@ -80,7 +87,6 @@ def hotel():
     if answer==None:
         answer=tulingbot.get_answer(content)
     file2=open("Log/HistoryHotel.txt","a")
-    file2.write('\n')
     file2.write(content)
     file2.write('\n')
     file2.write(answer)

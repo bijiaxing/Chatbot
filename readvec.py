@@ -3,11 +3,11 @@ import argparse
 import random
 import jieba
 import qsresouce
+import app
 
 
-
+#本代码加入了太多vectors，其实不需要，但由于函数中参数的传递也仅仅为地址，故不影响速度
 #词向量字典模型建模
-
 def read_vectors(path, topn, vectors):  # read top n word vectors
     lines_num =  0
     with open(path, encoding='utf-8', errors='ignore') as f:
@@ -31,12 +31,7 @@ def sentence_vector(s,vectors):#该函数用于计算句子向量
         words = jieba.lcut(s.replace("能不能",""))
         v = np.zeros(300)
         for word in words:
-            if word in ["告诉","你" , "请问" , "我" , "什么" , "是" ,"呀", "，","？","?",".","。",
-            "可不可以","的","该","如何","进行","吗","说","讲", "一下" ,"么" ,"谈" ,"干什么", "能否", "是否", "请",
-            "会","怎么办","到底","应该","怎么样",
-            "怎么","做","应该","这",
-            "才能","达到","呢",
-            "用来","可以","干","啥"]:
+            if word in app.StopWord_list:
                  continue
             if word in vectors.keys():#如果表中有则加入
                 v += vectors[word]

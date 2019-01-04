@@ -3,9 +3,9 @@ def readQSresouce(path,list1,list2):  # read top n word vectors
         tag=True
         for line in f:
             if tag==True:
-                list1.append(line)
+                list1.append(line.replace("\n", ""))
                 tag=False
             else:
-                list2.append(line)
+                list2.append(line.replace("\n", ""))
                 tag=True
     return 
