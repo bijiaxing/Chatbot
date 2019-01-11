@@ -63,5 +63,5 @@ def similarityCheck(s,vectors,queList,ansList):
             flag=index
             answer=ansList[flag]
     if finalsimiar>0.7:
-        return answer
+        return answer.replace("\n","")
 
