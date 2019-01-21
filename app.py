@@ -7,14 +7,24 @@ import readvec
 from qsresouce import *
 import pickle
 import tulingbot
-
+from DM.DiaTree import *
+from DM.manage import *
 Ecommerce_queList=[]
 Ecommerce_ansList=[]
 Logistics_queList=[]
 Logistics_ansList=[]
 Hotel_queList=[]
 Hotel_ansList=[]
-#语料列表声明
+#######################单轮语料列表声明#################################
+root=""
+with open("DM/Multi_dia.json",'r',encoding='UTF-8') as load_f:
+    load_dict = json.load(load_f)
+    root=ChangeDictToTree(load_dict)
+multi_round_start=[]  #多轮对话开始列表
+multi_round_start.append(root)  #将root加入到开始列表
+multi_round_process=[]   #多轮对话中间列表
+
+###########################多轮语料列表声明##########################
 
 readQSresouce('corpus/ecommerce.txt',Ecommerce_queList,Ecommerce_ansList)#读取电商沙盘语料库
 readQSresouce('corpus/logistics.txt',Logistics_queList,Logistics_ansList)#读取物流沙盘语料库
@@ -64,9 +74,13 @@ def add():
 def chat():
     tmpcontent = request.args.get('content')
     content=tmpcontent.replace('\n','')
-    answer=readvec.similarityCheck(content,vectors,Ecommerce_queList,Ecommerce_ansList)
+    answer=Multi_round_check(content,multi_round_start,multi_round_process,vectors)
+    if answer==None:
+        answer=readvec.similarityCheck(content,vectors,Ecommerce_queList,Ecommerce_ansList)
     if answer==None:
         answer=tulingbot.get_answer(content)
+
+###############################Log日志记录######################################        
     file1=open("Log/HistoryEcommerce.txt","a")
     file1.write(content)
     file1.write('\n')
