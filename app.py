@@ -20,8 +20,8 @@ root=""
 with open("DM/Multi_dia.json",'r',encoding='UTF-8') as load_f:
     load_dict = json.load(load_f)
     root=ChangeDictToTree(load_dict)
-multi_round_start=[]  #多轮对话开始列表
-multi_round_start.append(root)  #将root加入到开始列表
+multi_round_start=root.child_list  #多轮对话开始列表
+#multi_round_start.append(root)  #将root加入到开始列表
 multi_round_process=[]   #多轮对话中间列表
 
 ###########################多轮语料列表声明##########################
