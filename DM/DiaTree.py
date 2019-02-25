@@ -8,7 +8,7 @@ class Node(object):
     def add_child(self,node):
         self.child_list.append(node)
 
-# 递归将字典变成树 
+# 递归将字典变成树 ，实际上也可以递归建图，再设置一个flag，用来记录是否建立过该节点
 def ChangeDictToTree(dict):
         root=Node(dict["question"],dict["answer"])
         children=dict["children"]

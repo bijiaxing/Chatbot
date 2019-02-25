@@ -74,11 +74,12 @@ def add():
 def chat():
     tmpcontent = request.args.get('content')
     content=tmpcontent.replace('\n','')
-    answer=Multi_round_check(content,multi_round_start,multi_round_process,vectors)
-    if answer==None:
-        answer=readvec.similarityCheck(content,vectors,Ecommerce_queList,Ecommerce_ansList)
-    if answer==None:
-        answer=tulingbot.get_answer(content)
+    answer=Multi_round_check(content,multi_round_start,multi_round_process,vectors)  #多轮
+    if answer==None:  #单轮
+        answer=readvec.similarityCheck(content,vectors,Ecommerce_queList,Ecommerce_ansList) 
+    if answer==None:  #其他
+        answer="这里为您展示互联网的搜索结果"
+        #answer=tulingbot.get_answer(content)
 
 ###############################Log日志记录######################################        
     file1=open("Log/HistoryEcommerce.txt","a")
@@ -89,7 +90,7 @@ def chat():
     print(content)
     print(answer)
     return  json.dumps({'as':answer}) 
-#酒店沙盘机器人接口
+#########################酒店沙盘机器人接口#####################################
 @app.route("/hotel")
 def hotel():
     tmpcontent = request.args.get('content')
