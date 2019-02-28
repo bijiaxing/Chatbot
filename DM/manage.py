@@ -21,7 +21,7 @@ def Multi_round_check(content,multi_round_start,multi_round_process,vectors):
 
 ######################中间列表空###############################        
     for member in multi_round_start:
-        if readvec.vector_similarity(content,member.question,vectors)>0.9: #如果用户问题出现在开始列表当中 
+        if readvec.vector_similarity(content,member.question,vectors)>0.75: #如果用户问题出现在开始列表当中 
             response=member.response
             multi_round_process[:]=member.child_list#更新给用户选择的列表
             return response
